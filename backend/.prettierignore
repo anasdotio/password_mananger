@@ -1,0 +1,21 @@
+# Node modules (never format)
+node_modules
+
+# Build/output folders
+dist
+build
+
+# Config files you don’t want Prettier to touch
+*.min.js
+*.bundle.js
+
+# Logs
+logs
+*.log
+
+# Environment files
+.env
+.env.local
+
+# Git folders
+.git

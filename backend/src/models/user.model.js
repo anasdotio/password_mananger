@@ -1,6 +1,6 @@
-const { Schema, model } = require("mongoose");
-const bcryptjs = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+const { Schema, model } = require('mongoose');
+const bcryptjs = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 const userSchema = new Schema(
   {
@@ -22,13 +22,34 @@ const userSchema = new Schema(
       required: true,
       select: false,
     },
+    refreshToken: {
+      type: String,
+    },
   },
   { timestamps: true }
 );
 
-userSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) return next();
+userSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) return next();
   return (this.password = await bcryptjs.hash(this.password, 10));
 });
 
-module.exports = userSchema;
+userSchema.methods.comparePassword = async function (password) {
+  return await bcryptjs.compare(this.password, password);
+};
+
+userSchema.methods.generateAccessToken = async function () {
+  const payLoad = {
+    id: this._id,
+  };
+
+  return jwt.sign(payLoad, process.env.JWT_ACCESS_TOKEN_SECRET);
+};
+userSchema.methods.generateRefreshToken = async function () {
+  const payLoad = {
+    id: this._id,
+  };
+  return jwt.sign(payLoad, process.env.JWT_REFRESH_TOKEN_SECRET);
+};
+
+module.exports = model('User', userSchema);
