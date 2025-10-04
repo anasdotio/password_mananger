@@ -1,12 +1,15 @@
 const express = require('express');
 const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
 const authRoutes = require('./routes/auth.routes');
 const globalErrorHandler = require('./middlewares/globalError.middleware');
+
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
+app.use(cookieParser());
 
 app.use('/api/auth', authRoutes);
 

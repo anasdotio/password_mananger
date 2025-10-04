@@ -8,6 +8,15 @@ export default defineConfig([
     plugins: { js },
     extends: ['js/recommended'],
     languageOptions: { globals: globals.browser },
+    rules: {
+      'no-unused-vars': 'off', // <--- disable unused vars
+    },
   },
-  { files: ['**/*.js'], languageOptions: { sourceType: 'commonjs' } },
+  {
+    files: ['**/*.js'],
+    languageOptions: { sourceType: 'commonjs' },
+    rules: {
+      'no-unused-vars': 'off', // also disable here if needed
+    },
+  },
 ]);

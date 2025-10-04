@@ -10,6 +10,7 @@ const globalErrorHandler = (err, req, res, next) => {
     errors: err.errors || [],
   };
 
+  // eslint-disable-next-line no-undef
   if (process.env.NODE_ENV !== 'production') {
     response.stack = err.stack;
   }

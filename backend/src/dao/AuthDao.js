@@ -6,16 +6,18 @@ class AuthDao {
   }
 
   async findByEmail(email) {
-    return await User.findOne({ email });
+    return await User.findOne({ email }).select('+password');
   }
   async findById(id) {
     return await User.findById(id);
   }
 
   async updateRefreshToken(id, refreshToken) {
-    
-
     return await User.findByIdAndUpdate(id, { refreshToken }, { new: true });
+  }
+
+  async removeRefreshToken(id) {
+    return await User.findByIdAndUpdate(id, { $unset: { refreshToken: '' } });
   }
 }
 
