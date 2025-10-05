@@ -1,6 +1,7 @@
 const { Schema, model } = require('mongoose');
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const _config = require('../config/_config');
 
 const userSchema = new Schema(
   {
@@ -43,13 +44,13 @@ userSchema.methods.generateAccessToken = async function () {
     id: this._id,
   };
 
-  return jwt.sign(payLoad, process.env.JWT_ACCESS_TOKEN_SECRET);
+  return jwt.sign(payLoad, _config.JWT_ACCESS_TOKEN_SECRET);
 };
 userSchema.methods.generateRefreshToken = async function () {
   const payLoad = {
     id: this._id,
   };
-  return jwt.sign(payLoad, process.env.JWT_REFRESH_TOKEN_SECRET);
+  return jwt.sign(payLoad, _config.JWT_REFRESH_TOKEN_SECRET);
 };
 
 module.exports = model('User', userSchema);

@@ -7,8 +7,8 @@ const _config = require('./src/config/_config');
 
 connectDB();
 app
-  .listen(_config.port || 8000, () => {
-    console.log(`server is running on http://localhost:${_config.port}`);
+  .listen(_config.PORT || 8000, () => {
+    console.log(`server is running on http://localhost:${_config.PORT}`);
   })
   .on('error', (err) =>
     console.log(`Error occur while start the server : ${err.message}`)
