@@ -38,8 +38,18 @@ const logOutController = asyncWrapper(async (req, res) => {
   return res.status(200).json(new ApiResponse(200, message));
 });
 
+const meController = asyncWrapper(async (req, res) => {
+  const { _id } = req.user;
+  const user = await authService.authMe(_id);
+
+  return res
+    .status(200)
+    .json(new ApiResponse(201, 'User fetch successfully', user));
+});
+
 module.exports = {
   registerController,
   loginController,
   logOutController,
+  meController,
 };

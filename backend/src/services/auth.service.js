@@ -24,8 +24,6 @@ const login = async (bodyData) => {
 
   const user = await userDao.findByEmail(email);
 
-  console.log(user);
-
   if (!user) throw new ApiError(400, 'Invalid credentials');
 
   const isMatchedPassword = await user.comparePassword(password);
@@ -49,4 +47,12 @@ const logOut = async (userId) => {
   return { message: 'Logout successful' };
 };
 
-module.exports = { register, login, logOut };
+const authMe = async (userId) => {
+  const user = await userDao.findById(userId);
+
+  if (!user) throw new ApiError(404, 'User not found');
+
+  return user;
+};
+
+module.exports = { register, login, logOut, authMe };
