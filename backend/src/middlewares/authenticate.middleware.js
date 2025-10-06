@@ -22,7 +22,7 @@ const authenticate = async (req, res, next) => {
     const user = await User.findById(decoded.id);
 
     if (!user) throw new ApiError(400, 'Unauthorized access');
-
+   
     req.user = user;
     next();
   } catch (error) {

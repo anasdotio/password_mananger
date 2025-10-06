@@ -1,5 +1,6 @@
 const PassDao = require('../dao/PasswordDao');
 const ApiError = require('../utils/apiError');
+const ApiResponse = require('../utils/apiResponse');
 
 const createPassword = async (bodyData, userId) => {
   const existingUsername = await PassDao.findByUsername(bodyData.username);
@@ -15,7 +16,7 @@ const getPasswords = async (userId) => {
   const passwords = await PassDao.findPasswordsByUserId(userId);
 
   if (!passwords || passwords.length === 0) {
-    throw new ApiError(404, 'No passwords found for this user');
+    throw new ApiResponse(404, 'No passwords found for this user');
   }
 
   return passwords;

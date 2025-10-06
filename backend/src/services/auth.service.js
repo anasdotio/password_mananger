@@ -7,7 +7,7 @@ const register = async (bodyData) => {
 
   if (existing) {
     throw new ApiError(400, 'Email already registered');
-  }
+}
 
   const user = await userDao.createUser({ fullName, email, password });
 
@@ -27,7 +27,7 @@ const login = async (bodyData) => {
   if (!user) throw new ApiError(400, 'Invalid credentials');
 
   const isMatchedPassword = await user.comparePassword(password);
-  if (!isMatchedPassword) throw new ApiError(400, 'match is not correct');
+  if (!isMatchedPassword) throw new ApiError(400, 'Invalid credentials');
 
   const accessToken = await user.generateAccessToken();
   const refreshToken = await user.generateRefreshToken();
