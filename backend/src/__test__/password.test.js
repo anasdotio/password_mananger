@@ -2,28 +2,30 @@ const request = require('supertest');
 const app = require('../app');
 
 describe('Password API', () => {
-  describe('POST /api/passwords', () => {
-    it('should create password successfully', async () => {
-      // register user
+  let accessToken;
 
-      await request(app).post('/api/auth/register').send({
-        fullName: 'Anas Khan',
+  beforeEach(async () => {
+    // Register user
+
+    await request(app).post('/api/auth/register').send({
+      fullName: 'Anas Khan',
+      email: 'anas@gmail.com',
+      password: 'anaspass',
+    });
+
+    const loginResponse = await request(app)
+      .post('/api/auth/login')
+      .send({
         email: 'anas@gmail.com',
         password: 'anaspass',
-      });
+      })
+      .expect(200);
 
-      // login user
+    accessToken = loginResponse.body.data;
+  });
 
-      const loginResponse = await request(app)
-        .post('/api/auth/login')
-        .send({
-          email: 'anas@gmail.com',
-          password: 'anaspass',
-        })
-        .expect(200);
-
-      const accessToken = loginResponse.body.data;
-
+  describe('POST /api/passwords', () => {
+    it('should create password successfully', async () => {
       const response = await request(app)
         .post('/api/passwords')
         .send({
@@ -74,22 +76,6 @@ describe('Password API', () => {
 
   describe('GET /api/passwords', () => {
     it('should return passwords successfully', async () => {
-      await request(app).post('/api/auth/register').send({
-        fullName: 'Anas Khan',
-        email: 'anas@gmail.com',
-        password: 'anaspass',
-      });
-
-      const loginResponse = await request(app)
-        .post('/api/auth/login')
-        .send({
-          email: 'anas@gmail.com',
-          password: 'anaspass',
-        })
-        .expect(200);
-
-      const accessToken = loginResponse.body.data;
-
       await request(app)
         .post('/api/passwords')
         .send({
@@ -112,22 +98,6 @@ describe('Password API', () => {
     });
 
     it('should return message if no password found', async () => {
-      await request(app).post('/api/auth/register').send({
-        fullName: 'Anas Khan',
-        email: 'anas@gmail.com',
-        password: 'anaspass',
-      });
-
-      const loginResponse = await request(app)
-        .post('/api/auth/login')
-        .send({
-          email: 'anas@gmail.com',
-          password: 'anaspass',
-        })
-        .expect(200);
-
-      const accessToken = loginResponse.body.data;
-
       const response = await request(app)
         .get('/api/passwords')
         .set('Authorization', `Bearer ${accessToken}`);
