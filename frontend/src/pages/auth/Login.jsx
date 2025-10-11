@@ -2,16 +2,9 @@ import React from 'react';
 import InputField from '../../components/common/InputField';
 import { cn } from '../../lib/utils';
 import Button from '../../components/common/Button';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-const Register = () => {
-  const navigate = useNavigate();
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    navigate('/passwords');
-  };
-
+const Login = () => {
   return (
     <div className="relative flex h-screen w-full items-center justify-center bg-[#101922] p-1">
       <h3
@@ -23,20 +16,9 @@ const Register = () => {
       </h3>
 
       <div className="w-full">
-        <form
-          onSubmit={handleSubmit}
-          className="flex w-full flex-col gap-4 p-3"
-        >
-          <h1 className="text-center text-2xl text-white">
-            Create Your Account
-          </h1>
+        <form className="flex w-full flex-col gap-4 p-3">
+          <h1 className="text-center text-2xl text-white">Login</h1>
 
-          <InputField
-            name="fullName"
-            type="text"
-            placeHolder="Full Name"
-            className="bg-[#1F2937] text-white focus:outline-none"
-          />
           <InputField
             name="email"
             type="email"
@@ -56,23 +38,21 @@ const Register = () => {
             className="border-none bg-[#3B82F6] font-sans font-semibold"
           />
 
-          <p className="text-center font-sans text-sm text-[#9CA3AF]">
-            Or sign up with
-          </p>
+          <p className="text-center font-sans text-sm text-[#9CA3AF]">Or</p>
 
           <Button
-            text="Sign up with Google"
+            text="Continue with Google"
             className="cursor-pointer border-[#323C4C] bg-[#1F2937] font-mono font-semibold"
           />
         </form>
 
         <p className="mt-10 text-center text-[#9CA3AF]">
-          Already have an account?{' '}
+          Don't have an account?{' '}
           <Link
             className="font-semibold text-blue-500 hover:underline"
-            to="/auth/login"
+            to="/auth/register"
           >
-            Log In
+            Sign Up
           </Link>
         </p>
       </div>
@@ -80,4 +60,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;
