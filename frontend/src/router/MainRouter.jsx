@@ -1,5 +1,6 @@
 import { lazy } from 'react';
 import { createBrowserRouter, Navigate } from 'react-router-dom';
+import AuthWrapper from '../components/AuthWrapper';
 const RegisterPage = lazy(() => import('../pages/auth/Register'));
 const LoginPage = lazy(() => import('../pages/auth/Login'));
 const PassLayout = lazy(() => import('../pages/Layout/PassLayout'));
@@ -22,7 +23,11 @@ const MainRouter = createBrowserRouter([
 
   {
     path: '/passwords',
-    element: <PassLayout />,
+    element: (
+      <AuthWrapper>
+        <PassLayout />
+      </AuthWrapper>
+    ),
     children: [
       {
         path: '',

@@ -3,13 +3,33 @@ import InputField from '../../components/common/InputField';
 import { cn } from '../../lib/utils';
 import Button from '../../components/common/Button';
 import { Link, useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import {} from 'lucide-react';
+import { useAppDispatch } from '../../store/hooks';
+import { register as registerAction } from './../../features/auth/authAPI';
 
 const Register = () => {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    navigate('/passwords');
+  const handleRegister = async (data) => {
+    try {
+      const res = await dispatch(registerAction(data)).unwrap();
+      console.log(res);
+      if (res.statusCode === 201) {
+        reset();
+        navigate('/passwords');
+      }
+    } catch (err) {
+      console.log(err);
+      alert('Something went wrong');
+    }
   };
 
   return (
@@ -24,8 +44,8 @@ const Register = () => {
 
       <div className="w-full">
         <form
-          onSubmit={handleSubmit}
-          className="flex w-full flex-col gap-4 p-3"
+          onSubmit={handleSubmit(handleRegister)}
+          className="flex w-full flex-col gap-6 p-3"
         >
           <h1 className="text-center text-2xl text-white">
             Create Your Account
@@ -36,18 +56,24 @@ const Register = () => {
             type="text"
             placeHolder="Full Name"
             className="bg-[#1F2937] text-white focus:outline-none"
+            {...register('fullName', { required: 'Full name is required' })}
+            error={errors.fullName?.message}
           />
           <InputField
             name="email"
             type="email"
             placeHolder="Email"
             className="bg-[#1F2937] text-white focus:outline-none"
+            {...register('email', { required: 'Email is required' })}
+            error={errors.email?.message}
           />
           <InputField
             name="password"
             type="password"
             placeHolder="Password"
             className="bg-[#1F2937] text-white focus:outline-none"
+            {...register('password', { required: 'Password is required' })}
+            error={errors.password?.message}
           />
 
           <Button
