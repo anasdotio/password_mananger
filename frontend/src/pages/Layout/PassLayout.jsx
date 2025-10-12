@@ -8,9 +8,9 @@ const PassLayout = () => {
     <div className="relative h-screen w-full bg-[#101922]">
       <Outlet />
 
-      <div className="absolute inset-x-0 bottom-3 flex h-16 items-center justify-between border-t-1 border-[#323C4C] px-10">
+      <div className="absolute inset-x-0 bottom-3 flex h-16 items-center justify-between border-t-1 border-[#323C4C]">
         <NavLink
-          to="/passwords" 
+          to="/passwords"
           className={({ isActive }) =>
             cn(
               'box flex flex-col items-center text-white',

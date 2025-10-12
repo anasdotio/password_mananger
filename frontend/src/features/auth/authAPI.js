@@ -16,3 +16,16 @@ export const register = createAsyncThunk(
     }
   },
 );
+
+export const authMe = createAsyncThunk('auth/me', async (_, thunkAPI) => {
+  try {
+    const response = await axios.get('/api/auth/me');
+
+    console.log(response.data);
+
+    return response.data;
+  } catch (err) {
+    console.log(err);
+    return thunkAPI.rejectWithValue(err.response.data);
+  }
+});

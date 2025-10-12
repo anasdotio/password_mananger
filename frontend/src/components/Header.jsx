@@ -2,7 +2,7 @@ import { cn } from '../lib/utils';
 
 const Header = ({ title, icon, className, onclick }) => {
   return (
-    <div className={cn('flex items-center px-4 py-4', className)}>
+    <div className={cn('flex items-center mb-4', className)}>
       <h1 className="text-2xl font-bold text-white">{title}</h1>
       <button
         onClick={onclick}

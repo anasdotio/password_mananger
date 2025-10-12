@@ -15,7 +15,7 @@ const Passwords = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen pb-20">
+    <div className="p-4">
       <Header
         onclick={() => navigate('/add-password')}
         className="justify-end space-x-40"

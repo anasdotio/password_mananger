@@ -54,11 +54,6 @@ const MainRouter = createBrowserRouter([
     path: '/add-password',
     element: <AddPassword />,
   },
-
-  // {
-  //   path: "/",
-  //   element: <Navigate to="/auth/login" />,
-  // },
 ]);
 
 export default MainRouter;
