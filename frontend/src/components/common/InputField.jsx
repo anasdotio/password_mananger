@@ -11,8 +11,12 @@ const InputField = ({
   ...props
 }) => {
   return (
-    <div className={`flex flex-col gap-1 ${className}`}>
-      {label && <label htmlFor={name}>{label}</label>}
+    <div className={`flex flex-col gap-1`}>
+      {label && (
+        <label className="text-[#808793]" htmlFor={name}>
+          {label}
+        </label>
+      )}
 
       <input
         type={type}

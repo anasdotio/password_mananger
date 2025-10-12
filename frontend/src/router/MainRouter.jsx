@@ -3,6 +3,11 @@ import { createBrowserRouter, Navigate } from 'react-router-dom';
 const RegisterPage = lazy(() => import('../pages/auth/Register'));
 const LoginPage = lazy(() => import('../pages/auth/Login'));
 const PassLayout = lazy(() => import('../pages/Layout/PassLayout'));
+const Passwords = lazy(() => import('../pages/passwords/Passwords'));
+const AddPassword = lazy(() => import('../pages/passwords/AddPassword'));
+const PasswordDetails = lazy(
+  () => import('../pages/passwords/PasswordDetails'),
+);
 
 const MainRouter = createBrowserRouter([
   {
@@ -21,19 +26,28 @@ const MainRouter = createBrowserRouter([
     children: [
       {
         path: '',
-        element: <h1>hello</h1>,
+        element: <Passwords />,
         index: true,
       },
       {
         path: 'edit',
         element: <h1>hello edit password page</h1>,
       },
+      {
+        path: 'details',
+        element: <PasswordDetails />,
+      },
     ],
   },
 
   {
-    path: '*',
+    path: '/',
     element: <Navigate to="/auth/login" />,
+  },
+
+  {
+    path: '/add-password',
+    element: <AddPassword />,
   },
 
   // {

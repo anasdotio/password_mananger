@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 const Login = () => {
   return (
-    <div className="relative flex h-screen w-full items-center justify-center bg-[#101922] p-1">
+    <div className="relative flex h-screen w-full items-center justify-center bg-[#101922]">
       <h3
         className={cn(
           'absolute inset-x-0 top-0 my-3 text-center font-mono text-xl text-white',

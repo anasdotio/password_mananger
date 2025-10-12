@@ -10,7 +10,7 @@ const PassLayout = () => {
 
       <div className="absolute inset-x-0 bottom-3 flex h-16 items-center justify-between border-t-1 border-[#323C4C] px-10">
         <NavLink
-          to="/passwords"
+          to="/passwords" 
           className={({ isActive }) =>
             cn(
               'box flex flex-col items-center text-white',
