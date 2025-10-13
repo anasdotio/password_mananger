@@ -5,6 +5,7 @@ const authRoutes = require('./routes/auth.routes');
 const passwordRoutes = require('./routes/password.routes');
 const globalErrorHandler = require('./middlewares/globalError.middleware');
 const cors = require('cors');
+const path = require('path');
 
 const app = express();
 
@@ -14,6 +15,8 @@ app.use(
     credentials: true,
   })
 );
+
+app.use(express.static(path.join(__dirname, '../public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
@@ -24,6 +27,10 @@ app.use('/api/passwords', passwordRoutes);
 
 app.get('/check', (req, res) => {
   res.status(200).json({ message: 'server work well !' });
+});
+
+app.get('*name', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
 app.use(globalErrorHandler);
