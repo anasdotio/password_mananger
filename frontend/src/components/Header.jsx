@@ -2,15 +2,20 @@ import { cn } from '../lib/utils';
 
 const Header = ({ title, icon, className, onclick }) => {
   return (
-    <div className={cn('flex items-center mb-4', className)}>
-      <h1 className="text-2xl font-bold text-white">{title}</h1>
-      <button
-        onClick={onclick}
-        className="rounded-full bg-blue-500 p-2 transition hover:bg-blue-600"
-      >
-        {icon}
-      </button>
-    </div>
+    <header
+      className={cn('flex items-center justify-between px-4 py-3', className)}
+    >
+      <h1 className="text-xl font-semibold text-white">{title}</h1>
+
+      {icon && (
+        <button
+          onClick={onclick}
+          className="rounded-full bg-[#0C141B] p-2 text-white transition-colors hover:bg-[#1173D4]"
+        >
+          {icon}
+        </button>
+      )}
+    </header>
   );
 };
 

@@ -6,7 +6,7 @@ const PasswordItem = ({ title, updated }) => {
 
   return (
     <div
-      onClick={() => navigate('/passwords/details')}
+      onClick={() => navigate('/password-details')}
       className="flex cursor-pointer items-center rounded-lg bg-[#1E293B] p-3"
     >
       <div className="mr-3 rounded-xl bg-[#0F172A] p-3">

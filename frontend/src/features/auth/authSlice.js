@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { authMe, register } from './authAPI';
+import { authMe, login, register } from './authAPI';
 
 const initialState = {
   user: null,
@@ -23,7 +23,7 @@ const authSlice = createSlice({
       })
       .addCase(register.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
+        state.error = action.payload?.message;
       });
 
     builder
@@ -39,7 +39,20 @@ const authSlice = createSlice({
         state.loading = false;
         state.checkedAuth = true;
         state.user = null;
-        state.error = action.payload;
+        state.error = action.payload?.message;
+      });
+
+    builder
+      .addCase(login.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(login.fulfilled, (state, action) => {
+        state.loading = false;
+        state.token = action.payload;
+      })
+      .addCase(login.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload?.message;
       });
   },
 });

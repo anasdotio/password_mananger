@@ -5,15 +5,19 @@ import { cn } from '../../lib/utils';
 
 const PassLayout = () => {
   return (
-    <div className="relative h-screen w-full bg-[#101922]">
-      <Outlet />
+    <div className="flex h-screen w-full flex-col overflow-hidden bg-[#101922]">
+      {/* Outlet scrolls if content is tall */}
+      <div className="flex-1 overflow-y-auto">
+        <Outlet />
+      </div>
 
-      <div className="absolute inset-x-0 bottom-3 flex h-16 items-center justify-between border-t-1 border-[#323C4C]">
+      {/* Fixed Bottom Nav */}
+      <div className="flex h-16 items-center justify-around border-t border-[#323C4C]">
         <NavLink
           to="/passwords"
           className={({ isActive }) =>
             cn(
-              'box flex flex-col items-center text-white',
+              'flex flex-col items-center text-white',
               isActive && 'text-[#1173D4]',
             )
           }
@@ -21,11 +25,12 @@ const PassLayout = () => {
           <KeyRound size={20} />
           <span className="text-sm font-semibold">Passwords</span>
         </NavLink>
+
         <NavLink
           to="/generator"
           className={({ isActive }) =>
             cn(
-              'box flex flex-col items-center text-white',
+              'flex flex-col items-center text-white',
               isActive && 'text-[#1173D4]',
             )
           }
@@ -33,11 +38,12 @@ const PassLayout = () => {
           <WandSparkles size={20} />
           <span className="text-sm font-semibold">Generator</span>
         </NavLink>
+
         <NavLink
           to="/settings"
           className={({ isActive }) =>
             cn(
-              'box flex flex-col items-center text-white',
+              'flex flex-col items-center text-white',
               isActive && 'text-[#1173D4]',
             )
           }

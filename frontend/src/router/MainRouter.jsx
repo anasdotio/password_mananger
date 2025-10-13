@@ -38,10 +38,6 @@ const MainRouter = createBrowserRouter([
         path: 'edit',
         element: <h1>hello edit password page</h1>,
       },
-      {
-        path: 'details',
-        element: <PasswordDetails />,
-      },
     ],
   },
 
@@ -53,6 +49,10 @@ const MainRouter = createBrowserRouter([
   {
     path: '/add-password',
     element: <AddPassword />,
+  },
+  {
+    path: '/password-details',
+    element: <PasswordDetails />,
   },
 ]);
 

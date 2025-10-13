@@ -9,7 +9,7 @@ const AddPassword = () => {
   const navigate = useNavigate();
 
   return (
-    <div className={cn('relative h-screen w-full bg-[#101922]')}>
+    <div className="relative h-screen w-full bg-[#101922]">
       <Header
         onclick={() => navigate('/passwords')}
         className="flex-row-reverse justify-end gap-20"

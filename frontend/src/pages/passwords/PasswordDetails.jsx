@@ -9,7 +9,7 @@ const PasswordDetails = () => {
   const navigate = useNavigate();
 
   return (
-    <div className={cn('relative h-screen w-full bg-[#101922]')}>
+    <div className={cn('h-screen w-full bg-[#101922] p-4')}>
       <Header
         onclick={() => navigate('/passwords')}
         className="flex-row-reverse justify-end gap-17"
@@ -17,7 +17,7 @@ const PasswordDetails = () => {
         icon={<X className="h-5 w-5 cursor-pointer text-white" />}
       />
 
-      <form className="mt-6 flex flex-col gap-6 p-4">
+      <form className="mt-6 flex flex-col gap-6">
         <InputField
           label="Website/Service"
           placeHolder="e.g., Google"
@@ -43,7 +43,7 @@ const PasswordDetails = () => {
         />
       </form>
 
-      <div className="footer flex items-center justify-center gap-8 p-4">
+      <div className="footer flex items-center justify-center gap-11 my-6">
         <Button
           text="Edit"
           className="w-[45%] border-none bg-[#103457] py-3 font-medium text-blue-500"

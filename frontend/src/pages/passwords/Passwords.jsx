@@ -3,16 +3,12 @@ import SearchBar from '../../components/SearchBar';
 import PasswordItem from '../../components/PasswordItem';
 import { Plus } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useAppSelector } from '../../store/hooks';
 
 const Passwords = () => {
-  const passwords = [
-    { title: 'Instagram Password', updated: '2 days ago' },
-    { title: 'Email Password', updated: '1 week ago' },
-    { title: 'Bank Account Password', updated: '3 weeks ago' },
-    { title: 'Social Media Password', updated: '1 month ago' },
-  ];
-
   const navigate = useNavigate();
+
+  const { passwords } = useAppSelector((state) => state.passwords);
 
   return (
     <div className="p-4">
@@ -24,9 +20,15 @@ const Passwords = () => {
       />
       <SearchBar />
       <div className="mt-4 space-y-2">
-        {passwords.map((item, idx) => (
-          <PasswordItem key={idx} title={item.title} updated={item.updated} />
-        ))}
+        {passwords.length === 0 ? (
+          <p className="mt-20 text-center text-gray-400">
+            No passwords found. Click the + icon to add a new password.
+          </p>
+        ) : (
+          passwords?.map((item, idx) => (
+            <PasswordItem key={idx} title={item.title} updated={item.updated} />
+          ))
+        )}
       </div>
     </div>
   );
