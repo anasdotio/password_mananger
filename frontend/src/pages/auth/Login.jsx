@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import InputField from '../../components/common/InputField';
 import { cn } from '../../lib/utils';
 import Button from '../../components/common/Button';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, replace, useNavigate } from 'react-router-dom';
 import { useAppDispatch } from './../../store/hooks';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { login } from '../../features/auth/authAPI';
+import { Loader } from 'lucide-react';
 
 const Login = () => {
-  const { loading, error } = useSelector((state) => state.auth);
+  const { user, loading, error } = useSelector((state) => state.auth);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -20,20 +21,22 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
-  const handleLogin = async (data) => {
-    console.log(data);
+  useEffect(() => {
+    if (user) {
+      navigate('/passwords', { replace: true });
+    }
+  }, [user, navigate]);
 
+  const handleLogin = async (data) => {
     try {
       const res = await dispatch(login(data)).unwrap();
-      console.log(res.data, 'response from login');
 
       if (res.statusCode === 200) {
         reset();
-        navigate('/passwords');
+        navigate('/passwords', { replace: true });
       }
     } catch (err) {
-      console.log(err.message);
-      alert(err?.message || 'Something went wrong');
+      alert(error || 'Something went wrong');
     }
   };
 
@@ -78,8 +81,9 @@ const Login = () => {
 
           <Button
             isLoading={loading}
-            text="Sign In"
+            text={loading ? 'logging in...' : 'Sign In'}
             type="submit"
+            icon={loading && <Loader size={16} className="animate-spin" />}
             className="border-none bg-[#3B82F6] font-sans font-semibold"
           />
 

@@ -4,8 +4,8 @@ import { cn } from '../../lib/utils';
 import Button from '../../components/common/Button';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import {} from 'lucide-react';
-import { useAppDispatch } from '../../store/hooks';
+import { Loader } from 'lucide-react';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { register as registerAction } from './../../features/auth/authAPI';
 
 const Register = () => {
@@ -18,17 +18,18 @@ const Register = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
+  const { loading, error } = useAppSelector((state) => state.auth);
+
   const handleRegister = async (data) => {
     try {
       const res = await dispatch(registerAction(data)).unwrap();
-      console.log(res);
+
       if (res.statusCode === 201) {
         reset();
-        navigate('/passwords');
+        navigate('/passwords', { replace: true });
       }
     } catch (err) {
-      console.log(err);
-      alert('Something went wrong');
+      alert(error || 'Registration failed. Please try again.');
     }
   };
 
@@ -77,8 +78,10 @@ const Register = () => {
           />
 
           <Button
-            text="Sign Up"
+            text={loading ? 'signing up...' : 'Sign Up'}
             type="submit"
+            isLoading={loading}
+            icon={loading && <Loader className="animate-spin" size={16} />}
             className="border-none bg-[#3B82F6] font-sans font-semibold"
           />
 
@@ -87,7 +90,7 @@ const Register = () => {
           </p>
 
           <Button
-            text="Sign up with Google"
+            text="Sign Up with Google"
             className="cursor-pointer border-[#323C4C] bg-[#1F2937] font-mono font-semibold"
           />
         </form>

@@ -33,6 +33,7 @@ const AuthWrapper = ({ children }) => {
     return <Navigate to="/auth/login" replace />;
   }
 
+
   return children;
 };
 
