@@ -51,7 +51,7 @@ const MainRouter = createBrowserRouter([
     element: <AddPassword />,
   },
   {
-    path: '/password-details',
+    path: '/password-details/:id',
     element: <PasswordDetails />,
   },
 ]);

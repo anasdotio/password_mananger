@@ -1,11 +1,12 @@
 import Header from '../../components/Header';
 import SearchBar from '../../components/SearchBar';
-import PasswordItem from '../../components/PasswordItem';
 import { Plus } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { useEffect } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { getPasswords } from '../../features/passwords/passAPI';
+import { Loader } from 'lucide-react';
+const PasswordItem = lazy(() => import('../../components/PasswordItem'));
 
 const Passwords = () => {
   const { passwords } = useAppSelector((state) => state.passwords);
@@ -14,7 +15,7 @@ const Passwords = () => {
 
   useEffect(() => {
     dispatch(getPasswords());
-  }, [dispatch, navigate]);
+  }, [dispatch]);
 
   console.log(passwords);
 
@@ -27,21 +28,31 @@ const Passwords = () => {
         icon={<Plus className="h-5 w-5 text-white" />}
       />
       <SearchBar />
-      <div className="mt-4 space-y-2">
-        {passwords.length === 0 ? (
-          <p className="mt-20 text-center text-gray-400">
-            No passwords found. Click the + icon to add a new password.
-          </p>
-        ) : (
-          passwords?.map((item) => (
-            <PasswordItem
-              key={item._id}
-              title={item.username}
-              updated={item.updatedAt.split('T')[0]}
-            />
-          ))
-        )}
-      </div>
+
+      <Suspense
+        fallback={
+          <div>
+            <Loader className="absolute top-1/2 left-1/2 animate-spin" />
+          </div>
+        }
+      >
+        <div className="mt-4 space-y-2">
+          {passwords.length === 0 ? (
+            <p className="mt-20 text-center text-gray-400">
+              No passwords found. Click the + icon to add a new password.
+            </p>
+          ) : (
+            passwords?.map((item) => (
+              <PasswordItem
+                key={item._id}
+                id={item._id}
+                title={item.username}
+                updated={item.updatedAt.split('T')[0]}
+              />
+            ))
+          )}
+        </div>
+      </Suspense>
     </div>
   );
 };

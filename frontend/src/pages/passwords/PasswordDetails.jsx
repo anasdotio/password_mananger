@@ -43,7 +43,7 @@ const PasswordDetails = () => {
         />
       </form>
 
-      <div className="footer flex items-center justify-center gap-11 my-6">
+      <div className="footer my-6 flex items-center justify-center gap-11">
         <Button
           text="Edit"
           className="w-[45%] border-none bg-[#103457] py-3 font-medium text-blue-500"
