@@ -1,9 +1,17 @@
 import React from 'react';
 import { cn } from './../../lib/utils';
 
-const Button = ({ text, className, type = 'button', icon, isLoading }) => {
+const Button = ({
+  text,
+  className,
+  type = 'button',
+  icon,
+  isLoading,
+  onclick,
+}) => {
   return (
     <button
+      onClick={onclick}
       disabled={type === 'submit' && isLoading}
       type={type}
       className={cn(

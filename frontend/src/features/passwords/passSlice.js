@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getPasswords } from './passAPI';
+import { createPassword, getPasswords } from './passAPI';
 
 const initialState = {
   passwords: [],
@@ -17,9 +17,21 @@ const passSlice = createSlice({
       })
       .addCase(getPasswords.fulfilled, (state, action) => {
         state.loading = false;
-        state.passwords = action.payload;
+        state.passwords = action.payload.data;
       })
       .addCase(getPasswords.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload?.message;
+      });
+    builder
+      .addCase(createPassword.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(createPassword.fulfilled, (state, action) => {
+        state.loading = false;
+        state.passwords.push(action.payload);
+      })
+      .addCase(createPassword.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload?.message;
       });

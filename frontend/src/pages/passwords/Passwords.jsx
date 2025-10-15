@@ -3,12 +3,20 @@ import SearchBar from '../../components/SearchBar';
 import PasswordItem from '../../components/PasswordItem';
 import { Plus } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { useAppSelector } from '../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { useEffect } from 'react';
+import { getPasswords } from '../../features/passwords/passAPI';
 
 const Passwords = () => {
-  const navigate = useNavigate();
-
   const { passwords } = useAppSelector((state) => state.passwords);
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getPasswords());
+  }, [dispatch, navigate]);
+
+  console.log(passwords);
 
   return (
     <div className="p-4">
@@ -25,8 +33,12 @@ const Passwords = () => {
             No passwords found. Click the + icon to add a new password.
           </p>
         ) : (
-          passwords?.map((item, idx) => (
-            <PasswordItem key={idx} title={item.title} updated={item.updated} />
+          passwords?.map((item) => (
+            <PasswordItem
+              key={item._id}
+              title={item.username}
+              updated={item.updatedAt.split('T')[0]}
+            />
           ))
         )}
       </div>
