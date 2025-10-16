@@ -6,7 +6,7 @@ import { Link, replace, useNavigate } from 'react-router-dom';
 import { useAppDispatch } from './../../store/hooks';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
-import { login } from '../../features/auth/authAPI';
+import { authMe, login } from '../../features/auth/authAPI';
 import { Loader } from 'lucide-react';
 
 const Login = () => {
@@ -20,6 +20,12 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  useEffect(() => {
+    if (!user) {
+      dispatch(authMe());
+    }
+  }, [dispatch, user]);
 
   useEffect(() => {
     if (user) {
