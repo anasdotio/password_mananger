@@ -1,4 +1,3 @@
-
 require('dotenv').config({ path: '.env.test' });
 
 const { MongoMemoryServer } = require('mongodb-memory-server');

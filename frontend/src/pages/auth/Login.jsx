@@ -22,12 +22,6 @@ const Login = () => {
   } = useForm();
 
   useEffect(() => {
-    if (!user) {
-      dispatch(authMe());
-    }
-  }, [dispatch, user]);
-
-  useEffect(() => {
     if (user) {
       navigate('/passwords', { replace: true });
     }
