@@ -1,12 +1,21 @@
 import { cn } from '../../lib/utils';
 import Header from '../../components/Header';
 import { Copy, X } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate, useParams } from 'react-router-dom';
 import InputField from '../../components/common/InputField';
 import Button from '../../components/common/Button';
+// import { useAppSelector } from '../../store/hooks';
 
 const PasswordDetails = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+
+  // const { id } = useParams();
+
+  // const { password } = useAppSelector((state) => state.passwords);
+
+  // const currentPassword = password?.find((pass) => pass._id === id);
+
+  // console.log(currentPassword);
 
   return (
     <div className={cn('h-screen w-full bg-[#101922] p-4')}>
@@ -22,6 +31,7 @@ const PasswordDetails = () => {
           label="Website/Service"
           placeHolder="e.g., Google"
           className="border-none bg-[#0C141B] text-white"
+          value={currentPassword?.website}
         />
         <InputField
           label="Username"

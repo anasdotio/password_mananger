@@ -21,12 +21,6 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
-  useEffect(() => {
-    if (user) {
-      navigate('/passwords', { replace: true });
-    }
-  }, [user, navigate]);
-
   const handleLogin = async (data) => {
     try {
       const res = await dispatch(login(data)).unwrap();
