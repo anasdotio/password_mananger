@@ -32,7 +32,7 @@ const Passwords = () => {
       <Suspense
         fallback={
           <div>
-            <Loader className="absolute top-1/2 left-1/2 animate-spin" />
+            <Loader className="- absolute top-1/2 left-1/2 -translate-x-1/2 translate-y-1/2 animate-spin text-white" />
           </div>
         }
       >
@@ -44,10 +44,10 @@ const Passwords = () => {
           ) : (
             passwords?.map((item) => (
               <PasswordItem
-                key={item._id}
-                id={item._id}
-                title={item.username}
-                updated={item.updatedAt.split('T')[0]}
+                key={item?._id}
+                id={item?._id}
+                title={item?.username}
+                updated={item.updatedAt?.split('T')[0]}
               />
             ))
           )}
