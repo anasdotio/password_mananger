@@ -1,21 +1,23 @@
 import { cn } from '../../lib/utils';
 import Header from '../../components/Header';
 import { Copy, X } from 'lucide-react';
-// import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import InputField from '../../components/common/InputField';
 import Button from '../../components/common/Button';
-// import { useAppSelector } from '../../store/hooks';
+import { useAppSelector } from '../../store/hooks';
 
 const PasswordDetails = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
-  // const { id } = useParams();
+  const { id } = useParams();
 
-  // const { password } = useAppSelector((state) => state.passwords);
+  const { password } = useAppSelector((state) => state.passwords);
 
-  // const currentPassword = password?.find((pass) => pass._id === id);
+  console.log(password);
 
-  // console.log(currentPassword);
+  const currentPassword = password?.find((pass) => pass._id === id);
+
+  console.log(currentPassword);
 
   return (
     <div className={cn('h-screen w-full bg-[#101922] p-4')}>

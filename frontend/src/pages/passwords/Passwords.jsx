@@ -17,8 +17,6 @@ const Passwords = () => {
     dispatch(getPasswords());
   }, [dispatch]);
 
-  console.log(passwords);
-
   return (
     <div className="p-4">
       <Header
