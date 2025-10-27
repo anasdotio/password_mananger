@@ -7,7 +7,7 @@ const register = async (bodyData) => {
 
   if (existing) {
     throw new ApiError(400, 'Email already registered');
-}
+  }
 
   const user = await userDao.createUser({ fullName, email, password });
 
@@ -55,4 +55,30 @@ const authMe = async (userId) => {
   return user;
 };
 
-module.exports = { register, login, logOut, authMe };
+const googleAuth = async (bodyData) => {
+  const user = await userDao.findByGoogleId(bodyData.id);
+
+  if (user) {
+    const accessToken = await user.generateAccessToken();
+    const refreshToken = await user.generateRefreshToken();
+
+    await userDao.updateRefreshToken(user._id, refreshToken);
+
+    return { accessToken, refreshToken };
+  }
+
+  const newUser = await userDao.createUser({
+    fullName: bodyData.displayName,
+    email: bodyData.emails[0].value,
+    googleId: bodyData.id,
+  });
+
+  const accessToken = await newUser.generateAccessToken();
+  const refreshToken = await newUser.generateRefreshToken();
+
+  await userDao.updateRefreshToken(newUser._id, refreshToken);
+
+  return { accessToken, refreshToken };
+};
+
+module.exports = { register, login, logOut, authMe, googleAuth };

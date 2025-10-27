@@ -5,10 +5,13 @@ const _config = require('../config/_config');
 
 const userSchema = new Schema(
   {
+    googleId: {
+      type: String,
+      unique: true,
+    },
     fullName: {
       type: String,
       required: true,
-      unique: true,
       trim: true,
     },
 
@@ -20,7 +23,9 @@ const userSchema = new Schema(
     },
     password: {
       type: String,
-      required: true,
+      required: function () {
+        return !this.googleId;
+      },
       select: false,
     },
     refreshToken: {

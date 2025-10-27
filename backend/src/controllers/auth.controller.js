@@ -47,9 +47,20 @@ const meController = asyncWrapper(async (req, res) => {
     .json(new ApiResponse(201, 'User fetch successfully', user));
 });
 
+const googleController = asyncWrapper(async (req, res) => {
+  const { accessToken, refreshToken } = await authService.googleAuth(req.user);
+
+  return res
+    .status(201)
+    .cookie('accessToken', accessToken)
+    .cookie('refreshToken', refreshToken)
+    .json(new ApiResponse(201, 'User registered successfully', accessToken));
+});
+
 module.exports = {
   registerController,
   loginController,
   logOutController,
   meController,
+  googleController,
 };

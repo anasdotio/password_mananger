@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: 'https://password-mananger.onrender.com',
-  // baseURL: 'http://localhost:3000',
+  // baseURL: 'https://password-mananger.onrender.com',
+  baseURL: 'http://localhost:3000',
   withCredentials: true,
 });
 

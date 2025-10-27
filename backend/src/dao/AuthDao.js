@@ -19,6 +19,10 @@ class AuthDao {
   async removeRefreshToken(id) {
     return await User.findByIdAndUpdate(id, { $unset: { refreshToken: '' } });
   }
+
+  async findByGoogleId(googleId) {
+    return await User.findOne({ googleId });
+  }
 }
 
 module.exports = new AuthDao();
