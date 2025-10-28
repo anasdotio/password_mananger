@@ -54,9 +54,9 @@ app.get('/check', (req, res) => {
   res.status(200).json({ message: 'server work well !' });
 });
 
-// app.get('*name', (req, res) => {
-//   res.sendFile(path.join(__dirname, '../public/index.html'));
-// });
+app.get('*name', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/index.html'));
+});
 
 app.use(globalErrorHandler);
 
